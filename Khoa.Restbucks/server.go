@@ -16,8 +16,11 @@ func main(){
 	
 	oc := controllers.NewOrderController(getSession())
 
-	router.HandleFunc("/order",oc.CreateOrder).Methods("POST")
-	router.HandleFunc("/order/{id}",oc.GetOrder).Methods("GET")	
+	router.HandleFunc("/v1/starbucks/order",oc.PlaceOrder).Methods("POST")
+	router.HandleFunc("/v1/starbucks/order/{id}",oc.GetOrder).Methods("GET")	
+	router.HandleFunc("/v1/starbucks/order/{id}",oc.CancelOrder).Methods("DELETE")
+	router.HandleFunc("/v1/starbucks/order/{id}",oc.UpdateOrder).Methods("PUT")
+	//router.HandleFunc("/v1/starbucks/payment/{id}",oc.PayOrder).Methods("PUT")
 	fmt.Println("serving on port 9090")
 	err := http.ListenAndServe(":9090",router)
 	
@@ -26,6 +29,7 @@ func main(){
 
 func getSession() (s *mgo.Session) {  
     // Connect to our local mongo
-    s, _ = mgo.Dial("mongodb://mongo")
+    //s, _ = mgo.Dial("mongodb://mongo")
+	s, _ = mgo.Dial("mongodb://localhost")
     return s
 }
