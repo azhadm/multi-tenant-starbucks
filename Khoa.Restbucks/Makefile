@@ -35,10 +35,18 @@ run-boot:
 build-image:
 	docker build -t hellograils .
 
-docker:
+docker-server:
 	docker build -t restbucks .
 	docker run --name restbucks-mongo -dt mongo
 	docker run --name restbucks-go --link restbucks-mongo:mongo -p 9090:9090 -dt restbucks 
+
+docker-mongo:
+	docker network create my-mongo-cluster
+	docker run --name restbucks-mongo -dt mongo
+	docker run --name restbucks-go --link restbucks-mongo:mongo -p 9090:9090 -dt restbucks
+	docker build -t restbucks .
+	docker run --name restbucks-mongo -dt mongo
+	docker run --name restbucks-go --link restbucks-mongo:mongo -p 9090:9090 -dt restbucks
 
 grails-shell:
 	docker exec -it hellograils bash 	
