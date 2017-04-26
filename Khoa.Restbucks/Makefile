@@ -35,18 +35,13 @@ run-boot:
 build-image:
 	docker build -t hellograils .
 
-docker-server:
+docker-restbucks-build:
 	docker build -t restbucks .
-	docker run --name restbucks-mongo -dt mongo
-	docker run --name restbucks-go --link restbucks-mongo:mongo -p 9090:9090 -dt restbucks 
 
-docker-mongo:
-	docker network create my-mongo-cluster
-	docker run --name restbucks-mongo -dt mongo
-	docker run --name restbucks-go --link restbucks-mongo:mongo -p 9090:9090 -dt restbucks
-	docker build -t restbucks .
-	docker run --name restbucks-mongo -dt mongo
-	docker run --name restbucks-go --link restbucks-mongo:mongo -p 9090:9090 -dt restbucks
+docker-restbucks-run: docker-restbucks-build
+	docker run --name restbucks-go -p 9090:9090 -dt restbucks 
+	echo Restbucks service listening on port 9090
+	docker ps
 
 grails-shell:
 	docker exec -it hellograils bash 	
@@ -62,10 +57,8 @@ docker-clean:
 	docker stop restbucks-go
 	docker rm restbucks-go
 	docker rmi restbucks
-	docker stop restbucks-mongo
-	docker rm restbucks-mongo
 
-docker-run:
+docker-run: 
 	docker run --name hellograils -td hellograils
 	docker ps
 

@@ -7,36 +7,40 @@ import (
 
 	"./controllers"
 	"github.com/gorilla/mux"
-	//"encoding/json"
 	"gopkg.in/mgo.v2"
 )
 
-//node0 := "54.67.63.53:27017"
-//node1 := "54.67.118.254:27017""
-//node2 := "54.193.42.94:27017"
+var mongo0 = "10.0.0.27:27017"
+var mongo1 = "10.0.2.34.224:27017"
+var mongo2 = "10.0.0.8:27017"
 
 func main() {
 
 	router := mux.NewRouter()
-
 	oc := controllers.NewOrderController(getSession())
 
-	router.HandleFunc("/starbucks/order", oc.PlaceOrder).Methods("POST")
-	router.HandleFunc("/starbucks/order/{id}", oc.GetOrder).Methods("GET")
-	router.HandleFunc("/starbucks/order/{id}", oc.CancelOrder).Methods("DELETE")
-	router.HandleFunc("/starbucks/order/{id}", oc.UpdateOrder).Methods("PUT")
-	router.HandleFunc("/starbucks/order/{id}/pay", oc.PayOrder).Methods("POST")
+	router.Handle("/starbucks/order", oc.PlaceOrderHandler()).Methods("POST")
+	router.Handle("/starbucks/orders", oc.GetAllOrdersHandler()).Methods("GET")
+	router.Handle("/starbucks/order/{id}", oc.GetOrderHandler()).Methods("GET")
+	router.Handle("/starbucks/order/{id}", oc.CancelOrderHandler()).Methods("DELETE")
+	router.Handle("/starbucks/order/{id}", oc.UpdateOrderHandler()).Methods("PUT")
+	router.Handle("/starbucks/order/{id}/pay", oc.PayOrderHandler()).Methods("POST")
+
 	fmt.Println("serving on port 9090")
+
 	err := http.ListenAndServe(":9090", router)
 
 	log.Fatal(err)
 }
 
-func getSession() (s *mgo.Session) {
+func getSession() *mgo.Session {
 	// Connect to our local mongo
-	s, _ = mgo.Dial("mongodb://localhost:27017")
-	//s, _ = mgo.Dial("mongodb://node0:30001,node1:30002,node2:30003")
-	//s, _ = mgo.Dial("mongodb://54.183.172.156:27017,54.153.89.203:27017,54.215.206.250:27017")
-	//s, _ = mgo.Dial("mongodb://54.153.89.203:27017")
+	//s, err := mgo.Dial("mongodb://localhost:27017")
+	//s, err := mgo.Dial("mongodb://node0:30001,node1:30002,node2:30003")
+	s, err := mgo.Dial("mongodb://" + mongo0 + "," + mongo1 + "," + mongo2)
+	//s, err := mgo.Dial("mongodb://54.153.89.203:27017")
+	if err != nil {
+		log.Fatal(err)
+	}
 	return s
 }
