@@ -1,120 +1,189 @@
 package controllers
 
 import (
-	"fmt"
-	//"log"
+	"encoding/json"
+	"errors"
 	"net/http"
-	//"errors"
+
 	"../models"
 	"github.com/gorilla/mux"
-	//"github.com/satori/go.uuid"
-	"encoding/json"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
-type OrderController struct{
+type OrderController struct {
 	session *mgo.Session
 }
 
-func NewOrderController(session *mgo.Session) *OrderController{
+func NewOrderController(session *mgo.Session) *OrderController {
 	return &OrderController{session}
 }
 
-func (oc OrderController) PlaceOrder(w http.ResponseWriter, req *http.Request){
-	var newOrder models.Order 
-
-	json.NewDecoder(req.Body).Decode(&newOrder)
-
-	newOrder.ID = bson.NewObjectId()
-
-	err := oc.session.DB("Restbucks").C("Order").Insert(&newOrder)
-	if	err	!=	nil	{
-		w.WriteHeader(500)
-		return
-	}
-	fmt.Println("new order created: ",newOrder.ID)
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(201)
-	json.NewEncoder(w).Encode(newOrder)
+type OrderError struct {
+	Error   error
+	Message string
+	Code    int
 }
 
-func (oc OrderController) GetOrder(w http.ResponseWriter, req *http.Request){
-	fmt.Println("here")
-	params := mux.Vars(req)
-	id := params["id"]
-	//fmt.Println("id: ",id)
+type OrderErrorHandler func(http.ResponseWriter, *http.Request) *OrderError
 
-	if !bson.IsObjectIdHex(id){
-		w.WriteHeader(404)
-		return
+func (oerh OrderErrorHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+	if err := oerh(w, req); err != nil {
+		http.Error(w, err.Message, err.Code)
 	}
-
-	oid := bson.ObjectIdHex(id)
-	//fmt.Println("oid: ",oid)
-	order := models.Order{}
-	err	:= oc.session.DB("Restbucks").C("Order").FindId(oid).One(&order)
-
-	if err != nil {
-		//panic("abc")
-		w.WriteHeader(404)
-		return
-	}
-
-
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(200)
-	json.NewEncoder(w).Encode(order)
-	return
 }
 
-func (oc OrderController) CancelOrder(w http.ResponseWriter, req *http.Request){
-	params := mux.Vars(req)
-	id := params["id"]
-	//fmt.Println("id: ",id)
-	if !bson.IsObjectIdHex(id){
-		w.WriteHeader(404)
-		return
+func (oc OrderController) PlaceOrderHandler() OrderErrorHandler {
+	return func(w http.ResponseWriter, req *http.Request) *OrderError {
+		var newOrder models.Order
+
+		json.NewDecoder(req.Body).Decode(&newOrder)
+
+		newOrder.Id = bson.NewObjectId()
+		newOrder.Links = make(map[string]string, 2)
+		newOrder.Links["payment"] = "http://localhost:9090/starbucks/" + newOrder.Id.Hex() + "/pay"
+		newOrder.Links["order"] = "http://localhost:9090/starbucks/order/" + newOrder.Id.Hex()
+		newOrder.Status = "payment expected"
+		newOrder.Message = "Order has been placed."
+
+		if err := oc.session.DB("Restbucks").C("Order").Insert(&newOrder); err != nil {
+			return &OrderError{err, "Try again later", 500}
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(201)
+		json.NewEncoder(w).Encode(newOrder)
+		return nil
 	}
-
-	oid := bson.ObjectIdHex(id)
-	//fmt.Println("oid: ",oid)
-	err	:= oc.session.DB("Restbucks").C("Order").RemoveId(oid)
-
-	if err != nil {
-		//panic("abc")
-		w.WriteHeader(404)
-		return
-	}
-
-	w.WriteHeader(204)
 }
 
-func (oc OrderController) UpdateOrder(w http.ResponseWriter, req *http.Request){
-	params := mux.Vars(req)
-	id := params["id"]
-	//fmt.Println("id: ",id)
+func (oc OrderController) GetOrderHandler() OrderErrorHandler {
+	return func(w http.ResponseWriter, req *http.Request) *OrderError {
+		params := mux.Vars(req)
+		id := params["id"]
 
-	if !bson.IsObjectIdHex(id){
-		w.WriteHeader(404)
-		return
+		if !bson.IsObjectIdHex(id) {
+			return &OrderError{errors.New("Invalid Order Id"), "Please check your Order Id", 404}
+		}
+
+		oid := bson.ObjectIdHex(id)
+		order := models.Order{}
+		if err := oc.session.DB("Restbucks").C("Order").FindId(oid).One(&order); err != nil {
+			return &OrderError{err, "database err", 404}
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(200)
+		json.NewEncoder(w).Encode(order)
+		return nil
 	}
+}
 
-	oid := bson.ObjectIdHex(id)
-	var order models.Order 
-	json.NewDecoder(req.Body).Decode(&order)
-	order.ID = oid
-	
-	err	:= oc.session.DB("Restbucks").C("Order").UpdateId(oid,order)
+func (oc OrderController) GetAllOrdersHandler() OrderErrorHandler {
+	return func(w http.ResponseWriter, req *http.Request) *OrderError {
+		orders := []models.Order{}
+		if err := oc.session.DB("Restbucks").C("Order").Find(nil).All(&orders); err != nil {
+			return &OrderError{err, "database err", 404}
+		}
 
-	if err != nil {
-		fmt.Println(err)
-		w.WriteHeader(500)
-		return
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(200)
+		json.NewEncoder(w).Encode(orders)
+		return nil
 	}
+}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(200)
-	json.NewEncoder(w).Encode(order)
-	//http.Redirect(w,r,)
+func (oc OrderController) CancelOrderHandler() OrderErrorHandler {
+	return func(w http.ResponseWriter, req *http.Request) *OrderError {
+		params := mux.Vars(req)
+		id := params["id"]
+		if !bson.IsObjectIdHex(id) {
+			return &OrderError{errors.New("invalid Order Id"), "Please check your Order Id", 404}
+		}
+
+		oid := bson.ObjectIdHex(id)
+		order := models.Order{}
+		if err := oc.session.DB("Restbucks").C("Order").FindId(oid).One(&order); err != nil {
+			return &OrderError{err, "Order not found", 404}
+		}
+
+		if order.Status != "payment expected" {
+			return &OrderError{errors.New(""), "order cannot be cancelled after paid", 403}
+		}
+
+		if err := oc.session.DB("Restbucks").C("Order").RemoveId(oid); err != nil {
+			return &OrderError{err, "Try again later", 500}
+		}
+
+		w.WriteHeader(204)
+		return nil
+	}
+}
+
+func (oc OrderController) UpdateOrderHandler() OrderErrorHandler {
+	return func(w http.ResponseWriter, req *http.Request) *OrderError {
+		params := mux.Vars(req)
+		id := params["id"]
+
+		if !bson.IsObjectIdHex(id) {
+			return &OrderError{errors.New("invalid Order Id"), "Check your Order Id", 403}
+		}
+
+		oid := bson.ObjectIdHex(id)
+		order := models.Order{}
+		if err := oc.session.DB("Restbucks").C("Order").FindId(oid).One(&order); err != nil {
+			return &OrderError{err, "Order not found", 404}
+		}
+
+		if order.Status != "payment expected" {
+			return &OrderError{errors.New("Action prohibited"), "Order can't be modified after paid", 403}
+		}
+
+		json.NewDecoder(req.Body).Decode(&order)
+		order.Message = "Order has been updated."
+
+		if err := oc.session.DB("Restbucks").C("Order").UpdateId(oid, order); err != nil {
+			return &OrderError{err, "Sever is busy. Please try again later", 500}
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(200)
+		json.NewEncoder(w).Encode(order)
+		return nil
+	}
+}
+
+func (oc OrderController) PayOrderHandler() OrderErrorHandler {
+	return func(w http.ResponseWriter, req *http.Request) *OrderError {
+		params := mux.Vars(req)
+		id := params["id"]
+		if !bson.IsObjectIdHex(id) {
+			return &OrderError{errors.New("invalid Order Id"), "Check your Order Id", 403}
+		}
+
+		oid := bson.ObjectIdHex(params["id"])
+		order := models.Order{}
+		if err := oc.session.DB("Restbucks").C("Order").FindId(oid).One(&order); err != nil {
+			return &OrderError{err, "Order not found", 404}
+		}
+
+		if order.Status != "payment expected" {
+			return &OrderError{errors.New("Action prohibited"), "Order were paid. You can't play it twice", 403}
+		}
+
+		order.Status = "PAID"
+		order.Message = "Order has been paid."
+		delete(order.Links, "payment")
+
+		if err := oc.session.DB("Restbucks").C("Order").UpdateId(oid, order); err != nil {
+			return &OrderError{err, "Sever is busy. Please try again later", 500}
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(200)
+		json.NewEncoder(w).Encode(order)
+
+		oc.AssignBarista(oid)
+		return nil
+	}
 }

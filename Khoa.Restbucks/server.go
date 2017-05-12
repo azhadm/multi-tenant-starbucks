@@ -4,32 +4,43 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
 	"./controllers"
 	"github.com/gorilla/mux"
-	//"encoding/json"
 	"gopkg.in/mgo.v2"
 )
 
-func main(){
+var mongo0 = "10.0.0.27:27017"
+var mongo1 = "10.0.2.34.224:27017"
+var mongo2 = "10.0.0.8:27017"
+
+func main() {
 
 	router := mux.NewRouter()
-	
 	oc := controllers.NewOrderController(getSession())
 
-	router.HandleFunc("/v1/starbucks/order",oc.PlaceOrder).Methods("POST")
-	router.HandleFunc("/v1/starbucks/order/{id}",oc.GetOrder).Methods("GET")	
-	router.HandleFunc("/v1/starbucks/order/{id}",oc.CancelOrder).Methods("DELETE")
-	router.HandleFunc("/v1/starbucks/order/{id}",oc.UpdateOrder).Methods("PUT")
-	//router.HandleFunc("/v1/starbucks/payment/{id}",oc.PayOrder).Methods("PUT")
+	router.Handle("/starbucks/order", oc.PlaceOrderHandler()).Methods("POST")
+	router.Handle("/starbucks/orders", oc.GetAllOrdersHandler()).Methods("GET")
+	router.Handle("/starbucks/order/{id}", oc.GetOrderHandler()).Methods("GET")
+	router.Handle("/starbucks/order/{id}", oc.CancelOrderHandler()).Methods("DELETE")
+	router.Handle("/starbucks/order/{id}", oc.UpdateOrderHandler()).Methods("PUT")
+	router.Handle("/starbucks/order/{id}/pay", oc.PayOrderHandler()).Methods("POST")
+
 	fmt.Println("serving on port 9090")
-	err := http.ListenAndServe(":9090",router)
-	
+
+	err := http.ListenAndServe(":9090", router)
+
 	log.Fatal(err)
 }
 
-func getSession() (s *mgo.Session) {  
-    // Connect to our local mongo
-    //s, _ = mgo.Dial("mongodb://mongo")
-	s, _ = mgo.Dial("mongodb://localhost")
-    return s
+func getSession() *mgo.Session {
+	// Connect to our local mongo
+	//s, err := mgo.Dial("mongodb://localhost:27017")
+	//s, err := mgo.Dial("mongodb://node0:30001,node1:30002,node2:30003")
+	s, err := mgo.Dial("mongodb://" + mongo0 + "," + mongo1 + "," + mongo2)
+	//s, err := mgo.Dial("mongodb://54.153.89.203:27017")
+	if err != nil {
+		log.Fatal(err)
+	}
+	return s
 }
