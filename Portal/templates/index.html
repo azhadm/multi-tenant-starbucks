@@ -24,8 +24,8 @@
                 {% include 'order.html' %}
             </div>
 
-            <footer class="footer">
-                <p>&copy; Azhad 2017</p>
+            <footer class="footer" style="text-align:center;">
+                <p>&copy; 3 Idiots 2017</p>
             </footer>
         </div>
     </div>
@@ -144,6 +144,7 @@
                                     $("#location").val("");
                                     $("#btnSave").show();
                                     $(".divStatus").hide();
+                                    $("#lblStatus").val("PLACED");
                                     $("#btnPay").data("id", "").hide();
                                     $("#btnUpdate").data("id", "").hide();
                                     $("#btnCancel").data("id", "").hide();
@@ -200,6 +201,7 @@
                         $("#btnNew").hide();
                         $("#btnRefresh").data("id", "").hide();
                         $(".divStatus").hide();
+                        $("#lblStatus").val("PLACED");
                         $("#btnUpdate").data("id", "").hide();
                         $("#btnCancel").data("id", "").hide();
                         $("#store").prop("disabled", false);
