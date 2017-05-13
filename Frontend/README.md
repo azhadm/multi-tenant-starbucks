@@ -15,6 +15,16 @@ Software tool: Docker
 
 Before the front-end sever is run, in addition to satisfy software requirements, make sure the following steps are met:
 
+1. Have at least 2 api backends running.
+
+Golang backend:
+        
+        https://github.com/azhadm/multi-tenant-starbucks/blob/master/Khoa.Restbucks/README.md
+
+Java backend:
+
+        https://github.com/azhadm/multi-tenant-starbucks/blob/master/Azhad.Restbucks/README.md
+
 1. Have a Kong sever running with appropriate routing setup for 2 uris, SanJose and SanFrancisco, the two current location in our fronend. See the links for more detail:
 
         https://github.com/azhadm/multi-tenant-starbucks/blob/master/Prachi.Kong/README.md
@@ -27,7 +37,7 @@ Before the front-end sever is run, in addition to satisfy software requirements,
 
 ### Run in local environment:
 
-1. After installing Python language and required package, go to directory where application.py is located and run the following command : 
+1. After installing Python language and required packages, go to directory where application.py is located and run the following command : 
 
         python application.py
 
@@ -37,10 +47,10 @@ Before the front-end sever is run, in addition to satisfy software requirements,
 
 1. After installing Docker and renaming Dockerfile.local to Dockerfile, go to directory where Dockerfile is located and build an image.
 
-#####   syntax:
+######   syntax:
         docker build -t <image_name> .
 
-#####   eg:
+######   eg:
         docker build -t starbucks_frontend .
 
 2. To check if the image is built successfully, run the following command and look for your <image_name>.
@@ -49,14 +59,14 @@ Before the front-end sever is run, in addition to satisfy software requirements,
 
 3. Run the docker image: 
 
-#####   syntax:
+######   syntax:
         docker run -it --rm -p 3000:8080 <image_name>
 
-#####   eg:
+######   eg:
         docker build -it --rm -p 3000:8080 starbucks_frontend
 
 4. Visit localhost:3000 to test application
 
 ## Deploy to AWS Elastic Beanstalk:
 
-    under construction
+Comming soon
