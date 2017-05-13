@@ -1,0 +1,54 @@
+<table class="item">
+    <tr>
+        <td>
+            <select id="quantity" class="form-control">
+                <option value="">Qty</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+        </td>
+        <td>
+            <select id="name" class="form-control">
+                <option value="">Name</option>
+                <option value="latte">Latte</option>
+                <option value="cappuccino">Cappuccino</option>
+                <option value="mocha">Mocha</option>
+            </select>
+        </td>
+        <td>
+            <select id="milk" class="form-control">
+                <option value="">Milk</option>
+                <option value="1%">1%</option>
+                <option value="2%">2%</option>
+                <option value="whole">Whole</option>
+            </select>
+        </td>
+        <td>
+            <select id="size" class="form-control">
+                <option value="">Size</option>
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+            </select>
+        </td>
+        <td>
+            <a class="removeItem" value="Remove Item">Remove Item</a>
+        </td>
+    </tr>
+</table>
+
+<script>
+    $(document).ready(function() {
+        $(document.body).on('click', '.removeItem', function() {
+            $(this).closest(".item").remove();
+        });
+    });
+</script>

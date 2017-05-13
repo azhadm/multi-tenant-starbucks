@@ -14,6 +14,9 @@ def forward_request(forward_base_url, request):
                             url=url,
                             headers=dict(request.headers),
                             data=data)
+    print(resp.text)
+    if 'Transfer-Encoding' in resp.headers:
+        del resp.headers['Transfer-Encoding']
     return Response(headers=dict(resp.headers),
                     response=resp.text,
                     status=resp.status_code)

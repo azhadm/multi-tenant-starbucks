@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tenant 1</title>
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename = 'style.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', filename = 'jquery-3.2.1.min.js') }}"></script>
+</head>
+
+<body>
+
+    <div class="form1">
+        <div class="login-screen">
+            <div class="app-title header">
+                <h3 class="text-muted">Starbucks</h3>
+            </div>
+            <div id="divContent">
+                {% include 'order.html' %}
+            </div>
+
+            <footer class="footer">
+                <p>&copy; Azhad 2017</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+
+            $(document.body).on('click', '#btnSave', function() {
+                var data = {};
+                data.location = $('#location').val();
+                var items = [];
+                $(".item").each(function(index) {
+                    var item = {};
+                    item.qty = $(this).find("#quantity").val();
+                    item.name = $(this).find("#name").val();
+                    item.milk = $(this).find("#milk").val();
+                    item.size = $(this).find("#size").val();
+                    items.push(item);
+                });
+                data.items = items;
+
+                $.ajax({
+                    type: 'POST',
+                    url: "/starbucks/order",
+                    data: JSON.stringify(data),
+                    contentType: 'application/json;charset=UTF-8',
+                    dataType: "json",
+                    success: function(data) {
+                        // if (data["link"]) {
+                        //     console.log(data["link"])
+                        //     d = new Date();
+                        //     $("#imgDiagram").prop("src", data["link"] + "?" + d.getTime())
+                        //     $("#divImage").show();
+                        // } else {
+                        //     $("#divImage").hide();
+                        // }
+                    }
+                });
+            });
+
+            $(document.body).on('click', '#sdfsd', function() {
+                var tenantData = [$("#diagramType").val(), $("#score").val(), $("#selectGrade").val(), $("#comment").val()];
+                $.ajax({
+                    type: 'POST',
+                    url: "tenant_save",
+                    contentType: 'application/json;charset=UTF-8',
+                    data: JSON.stringify({
+                        "tenant_data": tenantData
+                    }, null, '\t'),
+                    dataType: "json",
+                    success: function(data) {
+                        if (data["success"]) {
+                            $('#lblMessage').html("Data saved successfully.").css("color", "Green").show(2000).fadeTo(7000, 1).hide(2000);
+                        } else {
+                            $('#lblMessage').html("Unable to save data. An error occured.").css("color", "Red").show(2000).fadeTo(7000, 1).hide(2000);
+                        }
+                    },
+                    failure: function(data) {
+                        $('#lblMessage').html("Unable to save data. An error occured.").css("color", "Red").show(2000).fadeTo(7000, 1).hide(2000);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
