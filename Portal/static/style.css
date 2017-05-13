@@ -82,24 +82,7 @@ input:focus {
     box-shadow: none;
     transition: 0.25s;
     display: block;
-    width: 250px;
-    margin: 0 auto;
-}
-
-.btn1 {
-    border: 2px solid transparent;
-    background: #3498DB;
-    color: #ffffff;
-    font-size: 16px;
-    line-height: 20px;
-    padding: 10px 0;
-    text-decoration: none;
-    text-shadow: none;
-    border-radius: 3px;
-    box-shadow: none;
-    transition: 0.25s;
-    display: block;
-    width: 200px;
+    width: 120px;
     margin: 0 auto;
 }
 
@@ -121,7 +104,7 @@ input:focus {
 
 .div2 {
     text-align: center;
-    width: 400px;
+    width: 800px;
     margin: auto;
 }
 
@@ -134,4 +117,111 @@ input:focus {
     padding-top: 19px;
     color: #444;
     border-top: 1px solid #e5e5e5;
+}
+
+a {
+    background-color: #1889e6 !important;
+    color: #ffffff !important;
+}
+
+a:hover {
+    text-decoration: underline;
+    background-color: #2980B9 !important;
+    color: #ffffff !important;
+    cursor: pointer;
+}
+
+
+/**/
+
+
+/* grid */
+
+
+/**/
+
+.grid-row {
+    margin-top: 20px;
+}
+
+.grid-row:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.grid-row:first-child {
+    margin-top: 0;
+}
+
+.grid-col {
+    display: block;
+    float: left;
+    margin-left: 2%;
+}
+
+.grid-col:first-child {
+    margin-left: 0;
+}
+
+.grid-col .inner {
+    padding: 10px 0;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.grid-col-1 {
+    width: 15%;
+}
+
+.grid-col-2 {
+    width: 32%;
+}
+
+.grid-col-3 {
+    width: 49%;
+}
+
+.grid-col-4 {
+    width: 66%;
+}
+
+.grid-col-5 {
+    width: 83%;
+}
+
+.grid-col-offset-1 {
+    margin-left: 19%;
+}
+
+.grid-col-offset-1:first-child {
+    margin-left: 17%;
+}
+
+.grid-col-offset-2 {
+    margin-left: 36%;
+}
+
+.grid-col-offset-2:first-child {
+    margin-left: 34%;
+}
+
+.grid-col-offset-3 {
+    margin-left: 53%;
+}
+
+.grid-col-offset-3:first-child {
+    margin-left: 51%;
+}
+
+.grid-col-offset-4 {
+    margin-left: 70%;
+}
+
+.grid-col-offset-4:first-child {
+    margin-left: 68%;
+}
+
+.grid-col-offset-5:first-child {
+    margin-left: 85%;
 }

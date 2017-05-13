@@ -30,11 +30,14 @@
         </div>
     </div>
 
+
+
     <script>
         $(document).ready(function() {
             $("#btnSave").show();
             $("#btnPay").data("id", "").hide();
             $("#btnNew").hide();
+            $("#btnRefresh").hide();
             $("#btnUpdate").data("id", "").hide();
             $("#btnCancel").data("id", "").hide();
 
@@ -65,9 +68,11 @@
                         if (data["_id"]) {
                             $('#lblMessage').html(data["message"]).css("color", "Green").show(2000).fadeTo(7000, 1).hide(2000);
                             $("#btnSave").hide();
+                            $("#btnRefresh").data("id", data["_id"]);
                             $("#btnPay").data("id", data["_id"]).show();
                             $("#btnUpdate").data("id", data["_id"]).show();
                             $("#btnCancel").data("id", data["_id"]).show();
+                            $(".divStatus").show();
                             $("#store").prop("disabled", true);
                         } else {
                             $('#lblMessage').html("Unable to save order. An error occured.").css("color", "Red").show(2000).fadeTo(7000, 1).hide(2000);
@@ -165,6 +170,7 @@
                         if (data["_id"]) {
                             $('#lblMessage').html("Payment successful.").css("color", "Green").show(2000).fadeTo(7000, 1).hide(2000);
                             $("#btnNew").show();
+                            $("#btnRefresh").show();
                             $("#btnPay").data("id", "").hide();
                             $("#btnUpdate").data("id", "").hide();
                             $("#btnCancel").data("id", "").hide();
@@ -183,17 +189,37 @@
                     type: 'GET',
                     url: "/addItem",
                     dataType: "html",
+                    contentType: 'application/json;charset=UTF-8',
                     success: function(data, textStatus, xhr) {
                         $(".divItems").html(data);
                         $("#location").val("");
                         $("#btnSave").show();
                         $("#btnPay").data("id", "").hide();
                         $("#btnNew").hide();
+                        $("#btnRefresh").data("id", data["_id"]).hide();
+                        $(".divStatus").hide();
                         $("#btnUpdate").data("id", "").hide();
                         $("#btnCancel").data("id", "").hide();
                         $("#store").prop("disabled", false);
                     },
-                    complete: function(xhr, textStatus) {
+                    failure: function(xhr, textStatus) {
+
+                    }
+                });
+            });
+
+            $(document.body).on('click', '#btnRefresh', function() {
+                $.ajax({
+                    type: 'GET',
+                    url: "/starbucks/order/" + $(this).data("id"),
+                    headers: {
+                        'uri': $("#store").val()
+                    },
+                    dataType: "json",
+                    success: function(data, textStatus, xhr) {
+                        $("#lblStatus").html(data["status"]);
+                    },
+                    failure: function(xhr, textStatus) {
 
                     }
                 });

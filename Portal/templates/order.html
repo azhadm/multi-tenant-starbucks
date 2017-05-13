@@ -1,28 +1,89 @@
 <div class="login-form">
     <div class="div2">
         <h3 class="text-muted">Order</h3>
-        <br>
-        <select id="location" class="form-control">
-            <option value="">Location</option>
-            <option value="dine-in">Dine-in</option>
-            <option value="take-out">Take out</option>
-        </select>
-        <br>
-        <a class="addItem" value="Add Item" style="text-align:right;">Add Item</a>
-        <div class="divItems"> {% include 'partialOrder.html' %}
+        <div class="grid-row">
+            <div class="grid-col grid-col-2">
+                <div class="inner">
+                </div>
+            </div>
+            <div class="grid-col grid-col-2">
+                <div class="inner">
+                    <select id="location" class="form-control">
+                        <option value="">Location</option>
+                        <option value="dine-in">Dine-in</option>
+                        <option value="take-out">Take out</option>
+                    </select>
+                </div>
+            </div>
         </div>
+        <br>
+        <div class="grid-row">
+            <div class="grid-col grid-col-5">
+                <div class="inner">
+                </div>
+            </div>
+            <div class="grid-col grid-col-1">
+                <div class="inner">
+                    <a class="addItem form-control" value="Add Item">Add Item</a>
+                </div>
+            </div>
+        </div>
+        <div class="divItems">
+            {% include 'partialOrder.html' %}
+        </div>
+        <div class="grid-row divStatus" style="display:none;">
+            <div class="grid-col grid-col-1">
+                <div class="inner">
+                </div>
+            </div>
+            <div class="grid-col grid-col-2">
+                <div class="inner">
+                    <label>Status:  </label><label id="lblStatus">PLACED</label>
+                </div>
+            </div>
+            <div class="grid-col grid-col-2">
+                <div class="inner">
+                    <button id="btnRefresh" class="btn btn-lg btn-primary btn-block" type="button" style="display:none;">Refresh</button>
+                </div>
+            </div>
+            <div class="grid-col grid-col-1">
+                <div class="inner">
+                </div>
+            </div>
+        </div>
+        <br>
 
         <label id="lblMessage"></label>
-        <br>
-        <button id="btnSave" class="btn btn-lg btn-primary btn-block" type="button">Order</button>
-        <button id="btnPay" class="btn btn-lg btn-primary btn-block" style="display:none;" type="button">Pay</button>
-        <button id="btnUpdate" class="btn btn-lg btn-primary btn-block" style="display:none;" type="button">Update</button>
-        <button id="btnCancel" class="btn btn-lg btn-primary btn-block" style="display:none;" type="button">Cancel</button>
-        <button id="btnNew" class="btn btn-lg btn-primary btn-block" style="display:none;" type="button">New Order</button>
+
+        <div class="grid-row">
+            <div class="grid-col grid-col-1">
+                <div class="inner">
+                    <button id="btnSave" class="btn btn-lg btn-primary btn-block" type="button">Order</button>
+                </div>
+            </div>
+            <div class="grid-col grid-col-1 btnPay">
+                <div class="inner">
+                    <button id="btnPay" class="btn btn-lg btn-primary btn-block" style="display:none;" type="button">Pay</button>
+                </div>
+            </div>
+            <div class="grid-col grid-col-1 btnUpdate">
+                <div class="inner">
+                    <button id="btnUpdate" class="btn btn-lg btn-primary btn-block" style="display:none;" type="button">Update</button>
+                </div>
+            </div>
+            <div class="grid-col grid-col-1 btnCancel">
+                <div class="inner">
+                    <button id="btnCancel" class="btn btn-lg btn-primary btn-block" style="display:none;" type="button">Cancel</button>
+                </div>
+            </div>
+            <div class="grid-col grid-col-1 btnNew">
+                <div class="inner">
+                    <button id="btnNew" class="btn btn-lg btn-primary btn-block" style="display:none;" type="button">New Order</button>
+                </div>
+            </div>
+        </div>
     </div>
     <br>
-    <br>
-
 </div>
 <script>
     $(document).ready(function() {

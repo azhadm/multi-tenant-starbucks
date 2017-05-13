@@ -1,6 +1,6 @@
-<table class="item">
-    <tr>
-        <td>
+<div class="grid-row item">
+    <div class="grid-col grid-col-1">
+        <div class="inner">
             <select id="quantity" class="form-control">
                 <option value="">Qty</option>
                 <option value="1">1</option>
@@ -14,41 +14,50 @@
                 <option value="9">9</option>
                 <option value="10">10</option>
             </select>
-        </td>
-        <td>
+        </div>
+    </div>
+    <div class="grid-col grid-col-2">
+        <div class="inner">
             <select id="name" class="form-control">
                 <option value="">Name</option>
                 <option value="latte">Latte</option>
                 <option value="cappuccino">Cappuccino</option>
                 <option value="mocha">Mocha</option>
             </select>
-        </td>
-        <td>
+        </div>
+    </div>
+    <div class="grid-col grid-col-1">
+        <div class="inner">
             <select id="milk" class="form-control">
                 <option value="">Milk</option>
                 <option value="1%">1%</option>
                 <option value="2%">2%</option>
                 <option value="whole">Whole</option>
             </select>
-        </td>
-        <td>
+        </div>
+    </div>
+    <div class="grid-col grid-col-1">
+        <div class="inner">
             <select id="size" class="form-control">
                 <option value="">Size</option>
                 <option value="small">Small</option>
                 <option value="medium">Medium</option>
                 <option value="large">Large</option>
             </select>
-        </td>
-        <td>
-            <a class="removeItem" value="Remove Item">Remove Item</a>
-        </td>
-    </tr>
-</table>
+        </div>
+    </div>
+    <div class="grid-col grid-col-1">
+        <div class="inner">
+            <a class="removeItem form-control" value="Remove Item">Remove Item</a>
+        </div>
+    </div>
 
-<script>
-    $(document).ready(function() {
-        $(document.body).on('click', '.removeItem', function() {
-            $(this).closest(".item").remove();
+    <script>
+        $(document).ready(function() {
+            $(document.body).on('click', '.removeItem', function() {
+                $(this).closest(".item").remove();
+            });
         });
-    });
-</script>
+    </script>
+
+</div>
