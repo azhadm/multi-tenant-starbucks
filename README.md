@@ -7,7 +7,7 @@
 ![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/KongSteps/Step1proj.png)
 
 #### 2. Login to each instances using terminal
-ssh -i <key> ec2-user@<ip address>
+            ssh -i key_name ec2-user@ip_address
 
 #### 3. Once you login to instance set up banner in .bash_profile
 example:
