@@ -16,7 +16,7 @@
 
 ### Steps to create Kong cluster
    
-   https://github.com/azhadm/multi-tenant-starbucks/blob/master/Prachi.Kong/kongSteps.md
+   https://github.com/azhadm/multi-tenant-starbucks/blob/master/Prachi.Kong/README.md
 ***
 
 ### Team members
