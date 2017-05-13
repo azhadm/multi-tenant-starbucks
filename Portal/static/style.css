@@ -8,7 +8,7 @@
 
 body {
     font-family: Arial;
-    background-color: #3498DB;
+    background-color: #07A36F;
     padding: 50px;
 }
 
@@ -65,13 +65,13 @@ input {
 }
 
 input:focus {
-    border: 2px solid #3498DB;
+    border: 2px solid #22BF5C;
     box-shadow: none;
 }
 
 .btn {
     border: 2px solid transparent;
-    background: #3498DB;
+    background: #22BF5C;
     color: #ffffff;
     font-size: 16px;
     line-height: 25px;
@@ -87,12 +87,7 @@ input:focus {
 }
 
 .btn:hover {
-    background-color: #2980B9;
-}
-
-.btn1:hover {
-    background-color: #2980B9;
-    color: #ffffff;
+    background-color: #12A146;
 }
 
 .login-link {
@@ -120,13 +115,13 @@ input:focus {
 }
 
 a {
-    background-color: #1889e6 !important;
+    background-color: #22BF5C !important;
     color: #ffffff !important;
 }
 
 a:hover {
     text-decoration: underline;
-    background-color: #2980B9 !important;
+    background-color: #12A146 !important;
     color: #ffffff !important;
     cursor: pointer;
 }
