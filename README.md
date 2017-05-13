@@ -63,3 +63,26 @@ example:
             
             nodetool status
 ![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/KongSteps/proj:nodestatus.png)
+
+#### 10. Set up environment variables in Postman
+
+![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/KongSteps/proj:postman1.png)
+
+#### 11. Get Kong Server Status
+
+![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/KongSteps/proj:kongServerStatus.png)
+
+#### 12. Get Kong Cluster Status
+
+![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/KongSteps/proj:kongClusterStatus.png)
+
+#### 13. Get Kong Node Information
+
+        ```json
+            "cassandra_contact_points": [
+            "54.183.142.206",
+            "52.53.198.139",
+            "13.56.13.230"
+            ],
+
+![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/KongSteps/proj:KongNodeInfo.png)
