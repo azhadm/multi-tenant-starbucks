@@ -6,8 +6,11 @@
 
 ### Technology Stack:
    Portal : JQuery, JavaScript, HTML, CSS, BootStrap
+   
    Backend: Java , Go
+   
    Db : MongoDB, MongoDB
+   
    Api gateway : kong API 
 ***
 
