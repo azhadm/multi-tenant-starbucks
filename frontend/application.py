@@ -36,10 +36,8 @@ def cancel_order(order_id):
 def get_all_orders():
     """forward the get all orders request to kong API
     and forward the response to client"""
-    resp = forward_request(forward_base_url=application.config['KONG_BASE_URL'],
+    return forward_request(forward_base_url=application.config['KONG_BASE_URL'],
                            request=request)
-    del resp.headers['Transfer-Encoding']
-    return resp
 
 @application.route('/starbucks/order/<string:order_id>', methods=['PUT'])
 def update_order(order_id):
@@ -66,10 +64,7 @@ def pay_order(order_id):
 @application.route('/', methods=['GET'])
 def index():
     """render index template (homepage)"""
-    return 'Hello World!'
-    # if 'id' not in session:
-    #     session['id'] = uuid.uuid4().hex
-    # return render_template("index.html")
+    return render_template("index.html")
 
 if __name__ == "__main__":
     application.run(debug=True,
