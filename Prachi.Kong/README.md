@@ -91,6 +91,6 @@ example:
 
 ![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/Prachi.Kong/proj:KongAddApi.png)
 
-#### 15. Post Add Kong API
+#### 15. Get All Kong API details
 
 ![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/Prachi.Kong/proj:getallApi.png)

@@ -5,7 +5,8 @@
 ### Local environment:
 
 Language: Python 2.7 or 3.5 (preferred)
-Library: flask, requests
+
+Required packages: flask, requests
 
 ### Docker environment:
 
@@ -17,21 +18,21 @@ Before the portal sever is run, in addition to satisfy software requirements, ma
 
 1. Have at least 2 api backends running.
 
-Golang backend:
+#### Golang backend:
         
         https://github.com/azhadm/multi-tenant-starbucks/blob/master/Khoa.Restbucks/README.md
 
-Java backend:
+#### Java backend:
 
         https://github.com/azhadm/multi-tenant-starbucks/blob/master/Azhad.Restbucks/README.md
 
-1. Have a Kong sever running with appropriate routing setup for 2 uris, SanJose and SanFrancisco, the two current location in our frontend. See the links for more detail:
+2. Have a Kong sever running with appropriate routing setup for 2 uris, SanJose and SanFrancisco, the two current location in our frontend. See the links for more detail:
 
         https://github.com/azhadm/multi-tenant-starbucks/blob/master/Prachi.Kong/README.md
 
-2. Update application variable application.config['KONG_BASE_URL'] to have the base DNS address of Kong sever.
+3. Update application variable application.config['KONG_BASE_URL'] to have the base DNS address of Kong sever.
 
-3. Rename Dockerfile.local to Dockerfile if testing in Docker environment is desired
+4. Rename Dockerfile.local to Dockerfile if testing in Docker environment is desired
 
 ## Test/Run application:
 
