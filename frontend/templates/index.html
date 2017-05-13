@@ -32,6 +32,11 @@
 
     <script>
         $(document).ready(function() {
+            $("#btnSave").show();
+            $("#btnPay").data("id", "").hide();
+            $("#btnNew").hide();
+            $("#btnUpdate").data("id", "").hide();
+            $("#btnCancel").data("id", "").hide();
 
             $(document.body).on('click', '#btnSave', function() {
                 var data = {};
@@ -51,7 +56,7 @@
                     type: 'POST',
                     url: "/starbucks/order",
                     headers: {
-                        'hosts': $("#store").val()
+                        'uri': $("#store").val()
                     },
                     data: JSON.stringify(data),
                     contentType: 'application/json;charset=UTF-8',
@@ -92,7 +97,7 @@
                     type: 'PUT',
                     url: "/starbucks/order/" + $(this).data("id"),
                     headers: {
-                        'hosts': $("#store").val()
+                        'uri': $("#store").val()
                     },
                     data: JSON.stringify(data),
                     contentType: 'application/json;charset=UTF-8',
@@ -115,7 +120,7 @@
                     type: 'DELETE',
                     url: "/starbucks/order/" + $(this).data("id"),
                     headers: {
-                        'hosts': $("#store").val()
+                        'uri': $("#store").val()
                     },
                     contentType: 'application/json;charset=UTF-8',
                     dataType: "json",
@@ -153,7 +158,7 @@
                     type: 'POST',
                     url: "/starbucks/order/" + $(this).data("id") + "/pay",
                     headers: {
-                        'hosts': $("#store").val()
+                        'uri': $("#store").val()
                     },
                     dataType: "json",
                     success: function(data) {
