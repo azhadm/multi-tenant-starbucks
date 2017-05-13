@@ -8,10 +8,11 @@ application = Flask(__name__)
 application.config["SERVER_HOST"] = "0.0.0.0"
 application.config["SERVER_PORT"] = 8080
 
-application.config["KONG_BASE_URL"] = os.getenv("KONG_BASE_URL")
-if application.config["KONG_BASE_URL"] is None:
-#     application.config["KONG_BASE_URL"] = 'http://restbucks-api-sanjose-lb-1067926920.us-west-1.elb.amazonaws.com:9090'
-    application.config["KONG_BASE_URL"] = 'http://localhost:9090'
+# application.config["KONG_BASE_URL"] = os.getenv("KONG_BASE_URL")
+# if application.config["KONG_BASE_URL"] is None:
+# application.config["KONG_BASE_URL"] = 'http://restbucks-api-sanjose-lb-1067926920.us-west-1.elb.amazonaws.com:9090'
+# application.config["KONG_BASE_URL"] = 'http://localhost:9090'
+application.config["KONG_BASE_URL"] = 'http://52.53.227.36:8000'
 
 @application.route('/ping', methods=['GET'])
 def ping():
