@@ -86,3 +86,11 @@ example:
             ],
 
 ![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/Prachi.Kong/proj:KongNodeInfo.png)
+
+#### 14. Post Add Kong API
+
+![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/Prachi.Kong/proj:KongAddApi.png)
+
+#### 15. Post Add Kong API
+
+![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/Prachi.Kong/proj:getallApi.png)
