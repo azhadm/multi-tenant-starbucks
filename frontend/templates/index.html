@@ -15,6 +15,10 @@
         <div class="login-screen">
             <div class="app-title header">
                 <h3 class="text-muted">Starbucks</h3>
+                <select id="store" class="form-control" style="width:150px;float:right;">
+                    <option value="SanJose">San Jose</option>
+                    <option value="SanFrancisco">San Francisco</option>
+                </select>
             </div>
             <div id="divContent">
                 {% include 'order.html' %}
@@ -46,41 +50,125 @@
                 $.ajax({
                     type: 'POST',
                     url: "/starbucks/order",
+                    headers: {
+                        'hosts': $("#store").val()
+                    },
                     data: JSON.stringify(data),
                     contentType: 'application/json;charset=UTF-8',
                     dataType: "json",
                     success: function(data) {
                         if (data["_id"]) {
-                            $('#lblMessage').html(data["_id"]).css("color", "Green").show(2000).fadeTo(7000, 1).hide(2000);
+                            $('#lblMessage').html(data["message"]).css("color", "Green").show(2000).fadeTo(7000, 1).hide(2000);
+                            $("#btnSave").hide();
+                            $("#btnPay").data("id", data["_id"]).show();
+                            $("#btnUpdate").data("id", data["_id"]).show();
+                            $("#btnCancel").data("id", data["_id"]).show();
                         } else {
-                            $('#lblMessage').html("Unable to save data. An error occured.").css("color", "Red").show(2000).fadeTo(7000, 1).hide(2000);
+                            $('#lblMessage').html("Unable to save order. An error occured.").css("color", "Red").show(2000).fadeTo(7000, 1).hide(2000);
                         }
                     },
                     failure: function(data) {
-                        $('#lblMessage').html("Unable to save data. An error occured.").css("color", "Red").show(2000).fadeTo(7000, 1).hide(2000);
+                        $('#lblMessage').html("Unable to save order. An error occured.").css("color", "Red").show(2000).fadeTo(7000, 1).hide(2000);
                     }
                 });
             });
 
-            $(document.body).on('click', '#sdfsd', function() {
-                var tenantData = [$("#diagramType").val(), $("#score").val(), $("#selectGrade").val(), $("#comment").val()];
+            $(document.body).on('click', '#btnUpdate', function() {
+                var data = {};
+                data.location = $('#location').val();
+                var items = [];
+                $(".item").each(function(index) {
+                    var item = {};
+                    item.qty = $(this).find("#quantity").val();
+                    item.name = $(this).find("#name").val();
+                    item.milk = $(this).find("#milk").val();
+                    item.size = $(this).find("#size").val();
+                    items.push(item);
+                });
+                data.items = items;
+
                 $.ajax({
-                    type: 'POST',
-                    url: "tenant_save",
+                    type: 'PUT',
+                    url: "/starbucks/order/" + $(this).data("id"),
+                    headers: {
+                        'hosts': $("#store").val()
+                    },
+                    data: JSON.stringify(data),
                     contentType: 'application/json;charset=UTF-8',
-                    data: JSON.stringify({
-                        "tenant_data": tenantData
-                    }, null, '\t'),
                     dataType: "json",
                     success: function(data) {
-                        if (data["success"]) {
-                            $('#lblMessage').html("Data saved successfully.").css("color", "Green").show(2000).fadeTo(7000, 1).hide(2000);
+                        if (data["_id"]) {
+                            $('#lblMessage').html("Order updated successfully.").css("color", "Green").show(2000).fadeTo(7000, 1).hide(2000);
                         } else {
-                            $('#lblMessage').html("Unable to save data. An error occured.").css("color", "Red").show(2000).fadeTo(7000, 1).hide(2000);
+                            $('#lblMessage').html("Unable to update order. An error occured.").css("color", "Red").show(2000).fadeTo(7000, 1).hide(2000);
                         }
                     },
                     failure: function(data) {
-                        $('#lblMessage').html("Unable to save data. An error occured.").css("color", "Red").show(2000).fadeTo(7000, 1).hide(2000);
+                        $('#lblMessage').html("Unable to update order. An error occured.").css("color", "Red").show(2000).fadeTo(7000, 1).hide(2000);
+                    }
+                });
+            });
+
+            $(document.body).on('click', '#btnCancel', function() {
+                $.ajax({
+                    type: 'DELETE',
+                    url: "/starbucks/order/" + $(this).data("id"),
+                    headers: {
+                        'hosts': $("#store").val()
+                    },
+                    dataType: "json",
+                    success: function(data, textStatus, xhr) {
+
+                    },
+                    complete: function(xhr, textStatus) {
+                        if (xhr.status === 204) {
+                            $('#lblMessage').html("Order deleted successfully.").css("color", "Green").show(2000).fadeTo(7000, 1).hide(2000);
+                            $.ajax({
+                                type: 'GET',
+                                url: "/addItem",
+                                dataType: "html",
+                                success: function(data, textStatus, xhr) {
+                                    $(".divItems").html(data);
+                                    $("#location").val("");
+                                    $("#btnSave").show();
+                                    $("#btnPay").data("id", "").hide();
+                                    $("#btnUpdate").data("id", "").hide();
+                                    $("#btnCancel").data("id", "").hide();
+                                },
+                                complete: function(xhr, textStatus) {
+
+                                }
+                            });
+                        } else {
+                            $('#lblMessage').html("Unable to delete order. An error occured.").css("color", "Red").show(2000).fadeTo(7000, 1).hide(2000);
+                        }
+                    }
+                });
+            });
+
+            $(document.body).on('click', '#btnPay', function() {
+                $.ajax({
+                    type: 'POST',
+                    url: "/starbucks/order",
+                    headers: {
+                        'hosts': $("#store").val()
+                    },
+                    data: JSON.stringify(data),
+                    contentType: 'application/json;charset=UTF-8',
+                    dataType: "json",
+                    success: function(data) {
+                        if (data["_id"]) {
+                            $('#lblMessage').html(data["message"]).css("color", "Green").show(2000).fadeTo(7000, 1).hide(2000);
+                            $("#btnSave").hide();
+                            $("#btnPay").data("id", data["_id"]).show();
+                            $("#btnUpdate").data("id", data["_id"]).show();
+                            $("#btnCancel").data("id", data["_id"]).show();
+                        } else {
+                            $('#lblMessage').html("Unable to save order. An error occured.").css("color", "Red").show(2000).fadeTo(7000, 1).hide(2000);
+                        }
+                    },
+                    failure: function(data) {
+                        $('#lblMessage').html("Unable to save order. An error occured.").css("color", "Red").show(2000).fadeTo(7000, 1).hide(2000);
                     }
                 });
             });
