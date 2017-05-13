@@ -50,14 +50,14 @@
                     contentType: 'application/json;charset=UTF-8',
                     dataType: "json",
                     success: function(data) {
-                        // if (data["link"]) {
-                        //     console.log(data["link"])
-                        //     d = new Date();
-                        //     $("#imgDiagram").prop("src", data["link"] + "?" + d.getTime())
-                        //     $("#divImage").show();
-                        // } else {
-                        //     $("#divImage").hide();
-                        // }
+                        if (data["_id"]) {
+                            $('#lblMessage').html(data["_id"]).css("color", "Green").show(2000).fadeTo(7000, 1).hide(2000);
+                        } else {
+                            $('#lblMessage').html("Unable to save data. An error occured.").css("color", "Red").show(2000).fadeTo(7000, 1).hide(2000);
+                        }
+                    },
+                    failure: function(data) {
+                        $('#lblMessage').html("Unable to save data. An error occured.").css("color", "Red").show(2000).fadeTo(7000, 1).hide(2000);
                     }
                 });
             });
