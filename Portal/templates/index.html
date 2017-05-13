@@ -143,9 +143,11 @@
                                     $(".divItems").html(data);
                                     $("#location").val("");
                                     $("#btnSave").show();
+                                    $(".divStatus").hide();
                                     $("#btnPay").data("id", "").hide();
                                     $("#btnUpdate").data("id", "").hide();
                                     $("#btnCancel").data("id", "").hide();
+                                    $("#btnRefresh").data("id", "").hide();
                                 },
                                 complete: function(xhr, textStatus) {
 
@@ -196,7 +198,7 @@
                         $("#btnSave").show();
                         $("#btnPay").data("id", "").hide();
                         $("#btnNew").hide();
-                        $("#btnRefresh").data("id", data["_id"]).hide();
+                        $("#btnRefresh").data("id", "").hide();
                         $(".divStatus").hide();
                         $("#btnUpdate").data("id", "").hide();
                         $("#btnCancel").data("id", "").hide();
