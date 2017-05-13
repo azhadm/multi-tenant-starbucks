@@ -3,7 +3,8 @@
 ### Steps to create Kong cluster
 ***
 
-#### 1. Create 4 EC2 t2.micro instances
+#### 1. Create 4 EC2 t2.micro instances - 2 in each zone
+    
 ![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/KongSteps/Step1proj.png)
 
 #### 2. Login to each instances using terminal
