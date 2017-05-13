@@ -78,7 +78,7 @@ example:
 
 #### 13. Get Kong Node Information
 
-        ```json
+        In json output we can see our 3 nodes:
             "cassandra_contact_points": [
             "54.183.142.206",
             "52.53.198.139",
