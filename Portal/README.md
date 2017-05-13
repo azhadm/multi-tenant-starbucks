@@ -1,4 +1,4 @@
-# multi-tenant-starbucks
+# Multi-Tenant-Starbucks Portal with Python and html
 
 ## Software dependency:
 
@@ -13,7 +13,7 @@ Software tool: Docker
 
 ## Backend dependency:
 
-Before the front-end sever is run, in addition to satisfy software requirements, make sure the following steps are met:
+Before the portal sever is run, in addition to satisfy software requirements, make sure the following steps are met:
 
 1. Have at least 2 api backends running.
 
@@ -25,7 +25,7 @@ Java backend:
 
         https://github.com/azhadm/multi-tenant-starbucks/blob/master/Azhad.Restbucks/README.md
 
-1. Have a Kong sever running with appropriate routing setup for 2 uris, SanJose and SanFrancisco, the two current location in our fronend. See the links for more detail:
+1. Have a Kong sever running with appropriate routing setup for 2 uris, SanJose and SanFrancisco, the two current location in our frontend. See the links for more detail:
 
         https://github.com/azhadm/multi-tenant-starbucks/blob/master/Prachi.Kong/README.md
 
@@ -51,7 +51,7 @@ Java backend:
         docker build -t <image_name> .
 
 ######   eg:
-        docker build -t starbucks_frontend .
+        docker build -t portal .
 
 2. To check if the image is built successfully, run the following command and look for your <image_name>.
 
@@ -63,10 +63,10 @@ Java backend:
         docker run -it --rm -p 3000:8080 <image_name>
 
 ######   eg:
-        docker build -it --rm -p 3000:8080 starbucks_frontend
+        docker build -it --rm -p 3000:8080 portal
 
 4. Visit localhost:3000 to test application
 
-## Deploy to AWS Elastic Beanstalk:
+## Deploy using AWS Elastic Beanstalk:
 
-Comming soon
+Coming soon

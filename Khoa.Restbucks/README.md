@@ -1,4 +1,4 @@
-# Multi-tenant Starbuck API with Golang
+# Multi-Tenant-Starbuck backend with Golang
 
 ## Software Dependency: 
 
@@ -60,4 +60,4 @@ Before the back-end sever is run, in addition to satisfy software requirements, 
 
 ## Deploy using AWS Ec2 Container Service:
 
-Comming soon
+Coming soon
