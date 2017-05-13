@@ -5,14 +5,14 @@
 
 #### 1. Create 4 EC2 t2.micro instances - 2 in each zone
     
-![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/Pictures/KongSteps/Step1proj.png)
+![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/Prachi.Kong/Step1proj.png)
 
 #### 2. Login to each instances using terminal
             ssh -i key_name ec2-user@ip_address
 
 #### 3. Once you login to instance set up banner in .bash_profile
 example:
-![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/Pictures/KongSteps/proj:%20banner.png)
+![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/Prachi.Kong/proj:%20banner.png)
 
 
 #### 4. Install docker in all the clusters and start it
@@ -62,19 +62,19 @@ example:
             sudo docker exec -it kongdb bash
             
             nodetool status
-![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/Pictures/KongSteps/proj:nodestatus.png)
+![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/Prachi.Kong/proj:nodestatus.png)
 
 #### 10. Set up environment variables in Postman
 
-![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/Pictures/KongSteps/proj:postman1.png)
+![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/Prachi.Kong/proj:postman1.png)
 
 #### 11. Get Kong Server Status
 
-![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/Pictures/KongSteps/proj:kongServerStatus.png)
+![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/Prachi.Kong/proj:kongServerStatus.png)
 
 #### 12. Get Kong Cluster Status
 
-![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/Pictures/KongSteps/proj:kongClusterStatus.png)
+![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/Prachi.Kong/proj:kongClusterStatus.png)
 
 #### 13. Get Kong Node Information
 
@@ -85,4 +85,4 @@ example:
             "13.56.13.230"
             ],
 
-![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/Pictures/KongSteps/proj:KongNodeInfo.png)
+![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/Prachi.Kong/proj:KongNodeInfo.png)
