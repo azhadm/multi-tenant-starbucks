@@ -8,13 +8,14 @@ def forward_request(forward_base_url, request):
 
     if 'Uri' in request.headers:
         store_uri = '/' + request.headers['Uri']
-        # del request.headers['Uri']
+
     else:
         store_uri = ""
 
-    hds = dict(request.headers)
-    hdddd = {k:v for k, v in hds.iteritems() if k != 'Uri'}
-    # print hdddd
+    headers = request.headers
+    method = request.method
+    if method == 'DELETE':
+        headers = None
 
     url = forward_base_url + store_uri + request.path
     data = request.data
@@ -22,15 +23,13 @@ def forward_request(forward_base_url, request):
         data = None
 
     # print(request.headers)
-    print("Forwarding request to " + url)
-    resp = requests.request(method=request.method,
+    # print("Forwarding request to " + url)
+    resp = requests.request(method=method,
                             url=url,
-                            headers=dict(hdddd),
+                            headers=headers,
                             data=data)
-    # print(resp.text)
-    # print(resp.text)
-    # print(resp.text)
-    print resp.text
+
+    # print resp.text
     if 'Transfer-Encoding' in resp.headers:
         del resp.headers['Transfer-Encoding']
     return Response(headers=dict(resp.headers),
