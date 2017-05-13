@@ -23,12 +23,12 @@ example:
       
 #### 5. cas1 (First node of cassandra):
 
-###### ...syntax:
-...sudo docker run --name kongdb -d -e CASSANDRA_BROADCAST_ADDRESS=<ip of cas1> -e CASSANDRA_START_RPC=true -p 7000:7000 -p 7001:7001 -p 7199:7199 -p  9042:9042 -p 9160:9160 cassandra:3
+######      syntax:
+            sudo docker run --name kongdb -d -e CASSANDRA_BROADCAST_ADDRESS=<ip of cas1> -e CASSANDRA_START_RPC=true -p 7000:7000 -p 7001:7001 -p 7199:7199 -p  9042:9042 -p 9160:9160 cassandra:3
 
 
-######...eg: 
-...sudo docker run --name kongdb -d -e CASSANDRA_BROADCAST_ADDRESS=54.183.142.206 -e CASSANDRA_START_RPC=true -p 7000:7000 -p 7001:7001 -p 7199:7199 -p  9042:9042 -p 9160:9160 cassandra:3
+######      eg: 
+            sudo docker run --name kongdb -d -e CASSANDRA_BROADCAST_ADDRESS=54.183.142.206 -e CASSANDRA_START_RPC=true -p 7000:7000 -p 7001:7001 -p 7199:7199 -p  9042:9042 -p 9160:9160 cassandra:3
 
 #### cas2 (Second node of cassandra):
 
