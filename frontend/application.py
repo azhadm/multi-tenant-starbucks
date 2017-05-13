@@ -66,6 +66,11 @@ def index():
     """render index template (homepage)"""
     return render_template("index.html")
 
+@application.route('/addItem', methods=['GET'])
+def add_order():
+    """render index template (homepage)"""
+    return render_template("partialOrder.html")
+
 if __name__ == "__main__":
     application.run(debug=True,
                     host=application.config["SERVER_HOST"],
