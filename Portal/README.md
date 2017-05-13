@@ -5,7 +5,8 @@
 ### Local environment:
 
 Language: Python 2.7 or 3.5 (preferred)
-Library: flask, requests
+
+Required packages: flask, requests
 
 ### Docker environment:
 
