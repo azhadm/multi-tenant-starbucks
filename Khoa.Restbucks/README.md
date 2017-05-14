@@ -22,6 +22,10 @@ Before the back-end sever is run, in addition to satisfy software requirements, 
 
 3. Modify three variables in server.go, mongo1, mongo2, mongo3, to have those addresses.
 
+4. For more detail how to create a mongo cluster, visit the page:
+
+        https://github.com/azhadm/multi-tenant-starbucks/blob/master/Mongo/README.md
+
 ## Test/Run application:
 
 ### Run in local environment: 
@@ -59,7 +63,3 @@ Before the back-end sever is run, in addition to satisfy software requirements, 
         docker build -it --rm -p 9090:9090 KhoaRestBuck
 
 4. Test can be done using Curl or Postman tool with address localhost:9090.
-
-## Deploy using AWS Ec2 Container Service:
-
-Coming soon

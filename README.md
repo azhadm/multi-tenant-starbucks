@@ -22,9 +22,13 @@
    
    https://github.com/azhadm/multi-tenant-starbucks/blob/master/Khoa.Restbucks/README.md
 
-### Steps to run Python fronend
+### Steps to run Python portal
    
    https://github.com/azhadm/multi-tenant-starbucks/blob/master/Portal/README.md
+
+### Steps to run Mongo cluster
+
+   https://github.com/azhadm/multi-tenant-starbucks/blob/master/Mongo/README.md
 ***
 
 ### Team members
