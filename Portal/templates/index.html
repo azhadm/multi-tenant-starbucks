@@ -45,7 +45,11 @@
                 var data = {};
                 data.location = $('#location').val();
                 var items = [];
+                var check = true;
                 $(".item").each(function(index) {
+                    if ($("#location").val() === "" || $(this).find("#quantity").val() === "" || $(this).find("#name").val() === "" || $(this).find("#milk").val() === "" || $(this).find("#milk").val() === "") {
+                        check = false;
+                    }
                     var item = {};
                     item.qty = $(this).find("#quantity").val();
                     item.name = $(this).find("#name").val();
@@ -54,6 +58,11 @@
                     items.push(item);
                 });
                 data.items = items;
+
+                if (check === false) {
+                    $('#lblMessage').html("Please fill all the details first.").css("color", "Red").show(2000).fadeTo(5000, 1).hide(2000);
+                    return;
+                }
 
                 $.ajax({
                     type: 'POST',
@@ -88,7 +97,11 @@
                 var data = {};
                 data.location = $('#location').val();
                 var items = [];
+                var check = true;
                 $(".item").each(function(index) {
+                    if ($("#location").val() === "" || $(this).find("#quantity").val() === "" || $(this).find("#name").val() === "" || $(this).find("#milk").val() === "" || $(this).find("#milk").val() === "") {
+                        check = false;
+                    }
                     var item = {};
                     item.qty = $(this).find("#quantity").val();
                     item.name = $(this).find("#name").val();
@@ -97,6 +110,11 @@
                     items.push(item);
                 });
                 data.items = items;
+
+                if (check === false) {
+                    $('#lblMessage').html("Please fill all the details first.").css("color", "Red").show(2000).fadeTo(5000, 1).hide(2000);
+                    return;
+                }
 
                 $.ajax({
                     type: 'PUT',
