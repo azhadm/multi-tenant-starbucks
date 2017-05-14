@@ -75,6 +75,7 @@
                     dataType: "json",
                     success: function(data) {
                         if (data["_id"]) {
+                            $("#lblOrderId").html("Order ID: " + data["_id"]);
                             $('#lblMessage').html(data["message"]).css("color", "Green").show(2000).fadeTo(7000, 1).hide(2000);
                             $("#btnSave").hide();
                             $("#btnRefresh").data("id", data["_id"]);
@@ -158,11 +159,12 @@
                                 url: "/addItem",
                                 dataType: "html",
                                 success: function(data, textStatus, xhr) {
+                                    $("#lblOrderId").html("");
                                     $(".divItems").html(data);
                                     $("#location").val("");
                                     $("#btnSave").show();
                                     $(".divStatus").hide();
-                                    $("#lblStatus").val("PLACED");
+                                    $("#lblStatus").html("PLACED");
                                     $("#btnPay").data("id", "").hide();
                                     $("#btnUpdate").data("id", "").hide();
                                     $("#btnCancel").data("id", "").hide();
@@ -213,6 +215,7 @@
                     dataType: "html",
                     contentType: 'application/json;charset=UTF-8',
                     success: function(data, textStatus, xhr) {
+                        $("#lblOrderId").html("");
                         $(".divItems").html(data);
                         $("#location").val("");
                         $("#btnSave").show();
@@ -220,7 +223,7 @@
                         $("#btnNew").hide();
                         $("#btnRefresh").data("id", "").hide();
                         $(".divStatus").hide();
-                        $("#lblStatus").val("PLACED");
+                        $("#lblStatus").html("PLACED");
                         $("#btnUpdate").data("id", "").hide();
                         $("#btnCancel").data("id", "").hide();
                         $("#store").prop("disabled", false);
