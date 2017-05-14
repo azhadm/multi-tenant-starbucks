@@ -4,14 +4,14 @@
 
 As a preparation for this setup, you should be able to launch an EC2 instance with a VPC and a public IP address, to ssh into it using a keypair, to install mongo inside.
 
-## Steps to success:
+## Steps to produce:
 
-##### step 1 - Prepare the instance:
+#### step 1 - Prepare the instance:
 
 - Create an EC2 instance with public ip address
 - ssh into it using a pre-created key-value pair from AWS and install mongo
 
-##### step 2 - Setup mongo configuration:
+#### step 2 - Setup mongo configuration:
 
 Stop the mongo if it is runing, and change configure file at the path /etc/mongod.conf with an editor of your choice (vim, nano, etc).
 
@@ -27,7 +27,7 @@ example:
 
 - save and exit.
 
-##### step 3 - Setup mongo resplica set:
+#### step 3 - Setup mongo resplica set:
 
 At this point, you might want to create an image (AMI) and launch 2 new instances from that image, or you can repeat step 1 and 2 twice. You should have at least 3 mongo modes to have a meaningful mongo replicaset.
 
@@ -54,6 +54,8 @@ example:
 
 example:
 ![alt tag](https://github.com/azhadm/multi-tenant-starbucks/blob/master/Mongo/step3.5.png)
+
+## Result:
 
 CONGRATULATION, YOU HAVE SUCCESSFULLY CREATED A MONGO 3 NODE CLUSTER
 

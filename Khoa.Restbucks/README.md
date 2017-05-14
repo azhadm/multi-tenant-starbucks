@@ -24,7 +24,7 @@ Before the back-end sever is run, in addition to satisfy software requirements, 
 
 4. For more detail how to create a mongo cluster, visit the page:
 
-        https://github.com/azhadm/multi-tenant-starbucks/blob/master/Mongo/README.md
+   https://github.com/azhadm/multi-tenant-starbucks/blob/master/Mongo/README.md
 
 ## Test/Run application:
 
