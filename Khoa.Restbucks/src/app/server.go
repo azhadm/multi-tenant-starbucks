@@ -5,7 +5,10 @@ import (
 	"log"
 	"net/http"
 
-	"./controllers"
+	"os"
+
+	"controllers"
+
 	"github.com/gorilla/mux"
 	"gopkg.in/mgo.v2"
 )
@@ -35,10 +38,12 @@ func main() {
 
 func getSession() *mgo.Session {
 	// Connect to our local mongo
-	//s, err := mgo.Dial("mongodb://localhost:27017")
+	mongohost := os.Getenv("MONGOHOST")
+	mongoDial := "mongodb://" + mongohost + ":27017"
+	s, err := mgo.Dial(mongoDial)
 	//s, err := mgo.Dial("mongodb://node0:30001,node1:30002,node2:30003")
-	s, err := mgo.Dial("mongodb://" + mongo0 + "," + mongo1 + "," + mongo2)
-	//s, err := mgo.Dial("mongodb://54.153.89.203:27017")
+	// s, err := mgo.Dial("mongodb://" + mongo0 + "," + mongo1 + "," + mongo2)
+	//s, err := mgo.Dial("mongodb://127.23.234.32:27017")
 	if err != nil {
 		log.Fatal(err)
 	}

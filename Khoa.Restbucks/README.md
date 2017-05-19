@@ -6,7 +6,7 @@
 
 Language: golang:1.7
 
-Required packages: github.com/gorilla/mux, gopkg.in/mgo.v2, gopkg.in/mgo.v2/bson
+Required packages: github.com/gorilla/mux, gopkg.in/mgo.v2
 
 ### Docker environment:
 

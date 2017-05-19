@@ -5,7 +5,8 @@ import (
 	"errors"
 	"net/http"
 
-	"../models"
+	"models"
+
 	"github.com/gorilla/mux"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
