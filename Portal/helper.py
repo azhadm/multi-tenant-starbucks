@@ -20,9 +20,9 @@ def forward_request(forward_base_url, request):
     # cleansing headers to prevent 400 bad request issue
     accepted_keys = ["Accept", "Accept-Encoding", "Accept-Language",
                      "Connection", "Host", "Referer", "X-Requested-With"]
-    headers = {key:request.headers[key]
-               for key in request.headers
-               if key in accepted_keys}
+    headers = {header[0]:header[1]
+               for header in request.headers
+               if header[0] in accepted_keys}
 
     # cleansing data
     data = request.data
