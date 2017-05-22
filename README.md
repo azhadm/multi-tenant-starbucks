@@ -22,9 +22,9 @@
    
    https://github.com/azhadm/multi-tenant-starbucks/blob/master/Prachi.Kong/README.md
 
-### Steps to run Golang backend
+### Golang backend
    
-   https://github.com/azhadm/multi-tenant-starbucks/blob/master/Khoa.Restbucks/README.md
+   https://github.com/khoale88/StarbucksAPI-Golang
 
 ### Steps to run Python portal
    
