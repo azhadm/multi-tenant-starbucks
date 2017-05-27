@@ -24,7 +24,7 @@
 
 ### Golang backend
    
-   https://github.com/khoale88/StarbucksAPI-Golang
+   https://github.com/khoale88/StarbucksAPI
 
 ### Steps to run Python portal
    
